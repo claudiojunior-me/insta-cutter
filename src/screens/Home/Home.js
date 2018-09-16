@@ -11,7 +11,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      path: '/storage/emulated/0/DCIM/Camera/V_20180901_202355_vHDR_On.mp4',
+      path: '',
       videoStartTime: 0,
       videoEndTime: 500,
       selectedVideoLength: 1
