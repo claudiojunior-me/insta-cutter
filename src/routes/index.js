@@ -12,8 +12,8 @@ export const RootStack = createStackNavigator(
     navigationOptions: {
       headerStyle: {
         backgroundColor: SECONDARY,
-        height: 70,
-        elevation: 2
+        height: 60,
+        elevation: 8
       },
       headerTintColor: '#FFF',
       headerTitleContainerStyle: {

@@ -27,7 +27,6 @@ export default StyleSheet.create({
     marginBottom: 10
   },
   videoContainer: {
-    backgroundColor: 'green',
     width: Dimensions.get('window').width - 20,
     height: 300,
     flex: 3,
@@ -35,8 +34,7 @@ export default StyleSheet.create({
   },
   videoTimelineContainer: {
     width: Dimensions.get('window').width - 20,
-    flex: 1,
-    backgroundColor: 'blue'
+    flex: 1
   },
   instructionsContainer: {
     flex: 1,
@@ -51,6 +49,7 @@ export default StyleSheet.create({
     width: Dimensions.get('window').width,
     alignContent: 'center',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    flexDirection: 'column'
   }
 });

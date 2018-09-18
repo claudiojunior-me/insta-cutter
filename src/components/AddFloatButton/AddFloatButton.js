@@ -2,18 +2,21 @@ import React from 'react';
 import { View, TouchableHighlight, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 const ImagePicker = require('react-native-image-picker');
-var RNGRP = require('react-native-get-real-path');
 
 import styles from './style';
 
 function AddFloatButton(props) {
   videoPick = async () => {
     var options = {
-      title: 'Select Avatar',
+      title: 'Selecione um video',
+      cancelButtonTitle: 'FECHAR',
+      takePhotoButtonTitle: 'Gravar Video...',
+      chooseFromLibraryButtonTitle: 'Escolher na Galeria...',
       mediaType: 'video',
       storageOptions: {
         skipBackup: true,
-        path: 'images'
+        path: 'images',
+        cameraRoll: false
       }
     };
 
@@ -30,12 +33,6 @@ function AddFloatButton(props) {
         if (props.onSelectVideo) props.onSelectVideo(response.path);
       }
     });
-
-    /* ImagePicker.showImagePicker(options, response => {
-      RNGRP.getRealPathFromURI(response.uri).then(filePath => {
-        _props.videoSelected(filePath);
-      });
-    }); */
   };
 
   return (

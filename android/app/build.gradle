@@ -137,6 +137,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-admob')
+    implementation project(':react-native-fs')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-get-real-path')

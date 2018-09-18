@@ -9,9 +9,12 @@
   "dependencies": {
     "react": "16.4.1",
     "react-native": "0.57.0-rc.3",
+    "react-native-admob": "^2.0.0-beta.5",
     "react-native-elements": "^0.19.1",
+    "react-native-fs": "^2.11.15",
     "react-native-get-real-path": "https://github.com/Wraptime/react-native-get-real-path.git",
     "react-native-image-picker": "^0.26.10",
+    "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-vector-icons": "^5.0.0",
     "react-native-video-processing": "^1.13.0",
     "react-navigation": "^2.12.1"
