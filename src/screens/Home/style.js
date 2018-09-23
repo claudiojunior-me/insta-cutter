@@ -22,7 +22,7 @@ export default StyleSheet.create({
   },
   adContainer: {
     backgroundColor: '#C4C4C4',
-    width: 300,
+    width: 320,
     height: 50,
     marginBottom: 10
   },
@@ -39,7 +39,8 @@ export default StyleSheet.create({
   instructionsContainer: {
     flex: 1,
     flexDirection: 'column',
-    paddingVertical: 80
+    paddingVertical: 80,
+    paddingHorizontal: 30
   },
   instructions: {
     color: 'rgba(255, 255, 255, 0.3)',
