@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { ButtonGroup, Button } from 'react-native-elements';
 import { VideoPlayer, Trimmer } from 'react-native-video-processing';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { AdMobBanner, AdMobInterstitial } from 'react-native-admob';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import styles from './style';
 import AddFloatButton from '../../components/AddFloatButton';
 import TrimFloatButton from '../../components/TrimFloatButton';
+import ResetButton from '../../components/ResetButton';
 
 const RNFS = require('react-native-fs');
 
@@ -16,10 +18,7 @@ class Home extends Component {
     // headerTitle instead of title
     headerTitle: (
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-          source={require('../../assets/insta_cutter_icon_hi_res.png')}
-          style={{ width: 35, height: 35 }}
-        />
+        <Icon name="ios-cut" size={35} color="#1E88E5" />
         <Text style={{ color: 'white', fontSize: 25, marginLeft: 10 }}>
           Insta Cutter
         </Text>
@@ -37,6 +36,25 @@ class Home extends Component {
       selectedVideoLength: 15,
       spinnerVisible: false
     };
+  }
+
+  componentDidMount() {
+    AdMobInterstitial.setAdUnitID('ca-app-pub-5398707650805959/4910653668');
+    AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+    AdMobInterstitial.addEventListener('adClosed', () => {
+      console.log('AdMobInterstitial => adClosed');
+      AdMobInterstitial.requestAd().catch(error => console.warn(error));
+      this.setState({
+        path: '',
+        videoStartTime: 0,
+        videoEndTime: 500,
+        selectedVideoLengthIdx: 1,
+        selectedVideoLength: 15,
+        spinnerVisible: false
+      });
+      this.props.navigation.navigate('DoneStack');
+    });
+    AdMobInterstitial.requestAd().catch(error => console.warn(error));
   }
 
   selectedVideo(path) {
@@ -58,9 +76,6 @@ class Home extends Component {
       this.setState({ spinnerVisible: true });
 
       // Display an interstitial
-      AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/8691691433');
-      AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
-      await AdMobInterstitial.requestAd();
       AdMobInterstitial.showAd();
 
       let currentTime = 0;
@@ -94,7 +109,6 @@ class Home extends Component {
         originFilePath.join('/'),
         destPath + '/' + loop + '_' + fileName
       );
-      this.resetSelectedVideo();
     } catch (err) {
       this.setState({ spinnerVisible: false });
       console.log('err ->', err);
@@ -158,7 +172,7 @@ class Home extends Component {
           <View style={styles.adContainer}>
             <AdMobBanner
               adSize="banner"
-              adUnitID="ca-app-pub-3940256099942544/6300978111"
+              adUnitID="ca-app-pub-5398707650805959/6683842286"
               testDevices={[AdMobBanner.simulatorId]}
               onAdFailedToLoad={error => console.error(error)}
             />
@@ -185,10 +199,8 @@ class Home extends Component {
             ) : (
               <View style={styles.instructionsContainer}>
                 <Text style={styles.instructions}>1 - Selecione o video</Text>
-                <Text style={styles.instructions}>
-                  2 - Escolhe o tempo dos clipes
-                </Text>
-                <Text style={styles.instructions}>3 - Corte os clipes</Text>
+                <Text style={styles.instructions}>2 - Escolhe o tempo</Text>
+                <Text style={styles.instructions}>3 - Corte</Text>
                 <Text style={styles.instructions}>4 - Compartilhe!</Text>
               </View>
             )}
@@ -209,21 +221,14 @@ class Home extends Component {
                 }}
               />
             ) : null}
-            {path !== '' ? (
-              <View style={{ marginTop: 8 }}>
-                <Button
-                  outline
-                  icon={{ name: 'refresh' }}
-                  title="Selecionar outro video"
-                  containerViewStyle={{ margin: 8 }}
-                  onPress={() => this.resetSelectedVideo()}
-                />
-              </View>
-            ) : null}
           </View>
         </View>
 
-        <View style={styles.bottomContainer} />
+        <View style={styles.bottomContainer}>
+          {path !== '' ? (
+            <ResetButton onPress={this.resetSelectedVideo.bind(this)} />
+          ) : null}
+        </View>
 
         {path !== '' ? (
           <TrimFloatButton onPress={this.trimVideo.bind(this)} />

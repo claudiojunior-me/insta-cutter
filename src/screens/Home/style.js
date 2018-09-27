@@ -11,7 +11,8 @@ export default StyleSheet.create({
   bottomContainer: {
     backgroundColor: SECONDARY,
     height: 60,
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width,
+    flexDirection: 'row'
   },
   contentContainer: {
     padding: 10,
